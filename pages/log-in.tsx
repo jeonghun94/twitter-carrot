@@ -21,9 +21,8 @@ export default () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "datadsds");
         if (data.ok) {
-          router.push("/home");
+          router.push("/");
         } else {
           setError(data.error);
         }
@@ -32,7 +31,7 @@ export default () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(submitting)}>
+      <form onSubmit={handleSubmit(submitting)} className="bg-red-400">
         <h1>Login</h1>
         <div>
           <label htmlFor="email">
@@ -59,6 +58,11 @@ export default () => {
             </Link>
           </>
         )}
+
+        <h1>Don't you have an account?</h1>
+        <Link href="/create-account">
+          <button>Register</button>
+        </Link>
       </form>
     </>
   );

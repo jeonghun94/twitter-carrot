@@ -6,15 +6,11 @@ export default async function handler(
 ) {
   const { email, name } = req.body;
 
-  console.log(email);
-
   const isExisted = await client.user.findUnique({
     where: {
       email,
     },
   });
-
-  console.log(isExisted);
 
   if (isExisted) {
     res.send({
