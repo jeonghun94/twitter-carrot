@@ -9,7 +9,9 @@ export default function App({ Component, pageProps }: any) {
           fetch(url).then((response) => response.json()),
       }}
     >
-      <Component {...pageProps} />
+      <div className="max-w-md m-auto  dark:bg-black dark:text-white">
+        <Component {...pageProps} />
+      </div>
     </SWRConfig>
   );
 }

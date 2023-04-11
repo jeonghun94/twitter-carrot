@@ -1,8 +1,9 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useMutation from "../lib/client/useMutation";
+import ErrorText from "../components/error-text";
+import Layout from "../components/layout";
 
 interface IForm {
   name: string;
@@ -17,7 +18,6 @@ interface MutationResult {
 export default () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-
   const {
     register,
     handleSubmit,
@@ -35,58 +35,90 @@ export default () => {
       router.push("/log-in");
     } else {
       if (data?.error) setError(data.error);
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
     }
   }, [data]);
 
+  // return (
+  //   <>
+  //     <form onSubmit={handleSubmit(submitting)} className="bg-red-400">
+  //       <h1 className="text-red-100">Create Account</h1>
+  //       <div>
+  //         <label htmlFor="name">
+  //           Name:
+  //           <input
+  //             {...register("name", {
+  //               required: {
+  //                 value: true,
+  //                 message: "Name is required",
+  //               },
+  //             })}
+  //             type="text"
+  //             name="name"
+  //             id="name"
+  //           />
+  //         </label>{" "}
+  //         {errors.name?.message}
+  //       </div>
+  //       <div>
+  //         <label htmlFor="email">
+  //           Email:
+  //           <input
+  //             {...register("email", {
+  //               required: {
+  //                 value: true,
+  //                 message: "Email is required",
+  //               },
+  //             })}
+  //             type="email"
+  //             name="email"
+  //             id="email"
+  //           />
+  //         </label>{" "}
+  //         {errors.email?.message}
+  //       </div>
+  //       <button>Create Account</button>
+  //     </form>
+  //     {error && <ErrorText error={error} />}
+  //   </>
+  // );
+
   return (
-    <>
-      <form onSubmit={handleSubmit(submitting)} className="bg-red-400">
-        <h1 className="text-red-100">Create Account</h1>
-        <div>
-          <label htmlFor="name">
-            Name:
-            <input
-              {...register("name", {
-                required: {
-                  value: true,
-                  message: "Name is required",
-                },
-              })}
-              type="text"
-              name="name"
-              id="name"
-            />
-          </label>{" "}
-          {errors.name?.message}
-        </div>
-        <div>
-          <label htmlFor="email">
-            Email:
-            <input
-              {...register("email", {
-                required: {
-                  value: true,
-                  message: "Email is required",
-                },
-              })}
-              type="email"
-              name="email"
-              id="email"
-            />
-          </label>{" "}
-          {errors.email?.message}
-        </div>
-        {error && error ? (
-          <>
-            <p>{error}</p>
-            <Link href={"/login"}>
-              <button>login</button>
-            </Link>
-          </>
-        ) : (
-          <button>Create Account</button>
-        )}
-      </form>
-    </>
+    <Layout>
+      <div>
+        <label htmlFor="name">
+          <input
+            {...register("name", {
+              required: {
+                value: true,
+                message: "Name is required",
+              },
+            })}
+            type="text"
+            name="name"
+            id="name"
+          />
+        </label>{" "}
+        {errors.name?.message}
+      </div>
+      <div>
+        <label htmlFor="email">
+          <input
+            {...register("email", {
+              required: {
+                value: true,
+                message: "Email is required",
+              },
+            })}
+            type="email"
+            name="email"
+            id="email"
+          />
+        </label>{" "}
+        {errors.email?.message}
+      </div>
+    </Layout>
   );
 };

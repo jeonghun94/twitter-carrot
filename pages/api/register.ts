@@ -15,7 +15,7 @@ export default async function handler(
   if (isExisted) {
     res.send({
       ok: false,
-      error: "user already exists please login",
+      error: "해당 계정이 존재 합니다. 다른 이메일을 사용해주세요.",
     });
     return;
   }

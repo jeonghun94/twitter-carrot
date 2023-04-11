@@ -15,7 +15,11 @@ async function handler(
     },
   });
 
-  if (!existingUser) return res.send({ ok: false, error: "user not found" });
+  if (!existingUser)
+    return res.send({
+      ok: false,
+      error: "죄송합니다. 해당 계정을 찾을 수 없습니다.",
+    });
 
   req.session.user = {
     id: existingUser.id,
