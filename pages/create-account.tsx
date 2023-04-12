@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useMutation from "../lib/client/useMutation";
-import ErrorText from "../components/error-text";
 import Layout from "../components/layout";
 
 interface IForm {
@@ -41,84 +40,50 @@ export default () => {
     }
   }, [data]);
 
-  // return (
-  //   <>
-  //     <form onSubmit={handleSubmit(submitting)} className="bg-red-400">
-  //       <h1 className="text-red-100">Create Account</h1>
-  //       <div>
-  //         <label htmlFor="name">
-  //           Name:
-  //           <input
-  //             {...register("name", {
-  //               required: {
-  //                 value: true,
-  //                 message: "Name is required",
-  //               },
-  //             })}
-  //             type="text"
-  //             name="name"
-  //             id="name"
-  //           />
-  //         </label>{" "}
-  //         {errors.name?.message}
-  //       </div>
-  //       <div>
-  //         <label htmlFor="email">
-  //           Email:
-  //           <input
-  //             {...register("email", {
-  //               required: {
-  //                 value: true,
-  //                 message: "Email is required",
-  //               },
-  //             })}
-  //             type="email"
-  //             name="email"
-  //             id="email"
-  //           />
-  //         </label>{" "}
-  //         {errors.email?.message}
-  //       </div>
-  //       <button>Create Account</button>
-  //     </form>
-  //     {error && <ErrorText error={error} />}
-  //   </>
-  // );
-
   return (
-    <Layout>
-      <div>
-        <label htmlFor="name">
-          <input
-            {...register("name", {
-              required: {
-                value: true,
-                message: "Name is required",
-              },
-            })}
-            type="text"
-            name="name"
-            id="name"
-          />
-        </label>{" "}
-        {errors.name?.message}
-      </div>
-      <div>
-        <label htmlFor="email">
-          <input
-            {...register("email", {
-              required: {
-                value: true,
-                message: "Email is required",
-              },
-            })}
-            type="email"
-            name="email"
-            id="email"
-          />
-        </label>{" "}
-        {errors.email?.message}
-      </div>
+    <Layout error={error}>
+      <form onSubmit={handleSubmit(submitting)} className="w-full">
+        <div>
+          <label htmlFor="name">
+            <input
+              {...register("name", {
+                required: {
+                  value: true,
+                  message: "사용자명을 입력하세요. ",
+                },
+              })}
+              className="border border-gray-300 rounded-md px-2 py-3 w-full placeholder:text-gray-600 focus:outline-none focus:border-[#1C9BEF] focus:ring-1 focus:ring-[#1C9BEF] ${error && `border-red-500`} dark:text-black"
+              placeholder="사용자명"
+              type="text"
+              name="name"
+              id="name"
+            />
+          </label>{" "}
+          {errors.name?.message}
+        </div>
+        <br />
+        <div>
+          <label htmlFor="email">
+            <input
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "이메일을 입력하세요.",
+                },
+              })}
+              className="border border-gray-300 rounded-md px-2 py-3 w-full placeholder:text-gray-600 focus:outline-none focus:border-[#1C9BEF] focus:ring-1 focus:ring-[#1C9BEF] ${error && `border-red-500`} dark:text-black"
+              placeholder="이메일"
+              type="email"
+              name="email"
+              id="email"
+            />
+          </label>{" "}
+          {errors.email?.message}
+        </div>
+        <button className="w-full p-2  my-8 rounded-3xl bg-black text-white font-bold text-md dark:bg-white dark:text-black">
+          계정 만들기
+        </button>
+      </form>
     </Layout>
   );
 };
