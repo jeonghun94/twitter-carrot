@@ -8,7 +8,6 @@ interface IForm {
   name: string;
   email: string;
 }
-
 interface MutationResult {
   ok: boolean;
   error: string;
@@ -16,6 +15,7 @@ interface MutationResult {
 
 export default () => {
   const router = useRouter();
+
   const [error, setError] = useState<string | null>(null);
   const {
     register,
