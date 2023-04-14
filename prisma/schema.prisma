@@ -20,8 +20,8 @@ model User {
   avatarUrl String?
   tweets    Tweet[]
   myTweets  Tweet[]  @relation("myTweets")
-  Like      Like[]
-  Reply     Reply[]
+  likes     Like[]
+  replys    Reply[]
 }
 
 model Tweet {
@@ -35,8 +35,8 @@ model Tweet {
   createdById Int
   imageUrl    String?
   views       Int      @default(0)
-  Like        Like[]
-  Reply       Reply[]
+  likes       Like[]
+  replys      Reply[]
 }
 
 model Like {

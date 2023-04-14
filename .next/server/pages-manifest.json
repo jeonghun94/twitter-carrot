@@ -2,5 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/tweet/[id]": "pages/tweet/[id].js"
+  "/": "pages/index.js",
+  "/edit": "pages/edit.js",
+  "/api/me": "pages/api/me.js",
+  "/api/tweet": "pages/api/tweet.js"
 }

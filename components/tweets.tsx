@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { convertTime } from "../lib/client/utils";
 import { ITweets } from "../pages";
+import TweetImage from "./tweetImage";
 
 export default function Tweets({ tweets }: ITweets) {
   return tweets?.length > 0 ? (
@@ -22,7 +23,8 @@ export default function Tweets({ tweets }: ITweets) {
                     {convertTime(tweet.createdAt.toString())}
                   </p>
                 </div>
-                <p className="text-sm text-gray-500">{tweet.text}</p>
+                <p className="text-sm text-gray-500 mb-2">{tweet.text}</p>
+                {tweet.imageUrl && <TweetImage imageUrl={tweet.imageUrl} />}
               </div>
             </div>
           </div>

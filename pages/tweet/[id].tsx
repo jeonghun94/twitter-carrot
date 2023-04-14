@@ -4,9 +4,14 @@ import client from "../../lib/server/db";
 import Layout from "../../components/tweetLayout";
 import { useForm } from "react-hook-form";
 import { IForm } from "..";
+import TweetImage from "../../components/tweetImage";
 
 interface TweetWithUser extends Tweet {
   user: User;
+  _count: {
+    likes: number;
+    replys: number;
+  };
 }
 
 interface ITweet {
@@ -17,9 +22,9 @@ interface ITweet {
 export default function TweetDetail({ tweet }: ITweet) {
   const {
     register,
-    handleSubmit,
+    // handleSubmit,
     formState: { errors },
-    setValue,
+    // setValue,
   } = useForm<IForm>();
 
   const createdAt = new Intl.DateTimeFormat("en", {
@@ -27,7 +32,7 @@ export default function TweetDetail({ tweet }: ITweet) {
     timeStyle: "medium",
   }).format(new Date(tweet.createdAt));
 
-  const date = ` ${createdAt.split(",")[0]}, ${createdAt.split(",")[1]}`;
+  // const date = ` ${createdAt.split(",")[0]}, ${createdAt.split(",")[1]}`;
 
   const time = `${createdAt.split(":")[0]}:${createdAt.split(":")[1]} ${
     createdAt.split(" ")[4]
@@ -58,21 +63,34 @@ export default function TweetDetail({ tweet }: ITweet) {
                 <span>#Hash</span> <span>#Tags</span>{" "}
               </p>
 
-              <div className="w-full h-80 border rounded-3xl"></div>
+              {tweet.imageUrl && (
+                <TweetImage imageUrl={tweet.imageUrl} height={320} />
+              )}
 
               <div className="border-b py-3 flex items-center gap-3 dark:border-b-[#181818]">
                 <p className="text-gray-500 text-sm">
-                  {`${time.split(" ")[3]} ${time.split(" ")[4]} · ${date} · `}
-                  <span className="font-semibold text-white">72 </span>
+                  {``}
+                  {`${time.split(" ")[3]} ${time.split(" ")[4]} · ${
+                    createdAt.split(",")[0]
+                  }, ${createdAt.split(",")[1]} · `}
+                  <span className="font-semibold text-white">
+                    {" "}
+                    {tweet.views}{" "}
+                  </span>
                   Views
                 </p>
               </div>
               <div className="border-b py-3 flex items-center gap-3 dark:border-b-[#181818]">
                 <p className="text-gray-500 text-sm">
-                  <span className="mr-1 text-white font-semibold">74</span>Likes
+                  <span className="mr-1 text-white font-semibold">
+                    {tweet._count.likes}
+                  </span>
+                  Likes
                 </p>
                 <p className="text-gray-500 text-sm">
-                  <span className="mr-1 text-white font-semibold">74</span>
+                  <span className="mr-1 text-white font-semibold">
+                    {tweet._count.replys}
+                  </span>
                   Replys
                 </p>
               </div>
@@ -114,6 +132,23 @@ export const getServerSideProps = async (context: NextPageContext) => {
     },
     include: {
       user: true,
+      _count: {
+        select: {
+          likes: true,
+          replys: true,
+        },
+      },
+    },
+  });
+
+  await client.tweet.update({
+    where: {
+      id: tweet?.id,
+    },
+    data: {
+      views: {
+        increment: 1,
+      },
     },
   });
 

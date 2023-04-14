@@ -21,12 +21,14 @@ async function handler(
       tweets,
     });
   } else {
-    const { text } = req.body;
+    const { text, photoId } = req.body;
+    console.log(photoId, "photoId");
     await client.tweet.create({
       data: {
         text,
         userId: Number(req.session.user?.id),
         createdById: Number(req.session.user?.id),
+        imageUrl: photoId,
       },
     });
 
