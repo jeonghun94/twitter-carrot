@@ -26,6 +26,7 @@ async function handler(
       data: {
         text,
         userId: Number(req.session.user?.id),
+        createdById: Number(req.session.user?.id),
       },
     });
 

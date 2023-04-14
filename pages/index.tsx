@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import Tweets from "../components/tweets";
 import Layout from "../components/tweetLayout";
 
-interface IForm {
+export interface IForm {
   text: string;
 }
 export interface ITweets {
