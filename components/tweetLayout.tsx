@@ -46,10 +46,10 @@ export default function Layout({ children, isHome }: LayoutProps) {
           </g>
         </svg>
         <AiFillHome onClick={handleHome} className="w-7 h-7 cursor-pointer" />
-        <IoLogOut
+        {/* <IoLogOut
           onClick={handleLogout}
           className="ml-1 w-8 h-8 cursor-pointer"
-        />
+        /> */}
       </div>
 
       <div className="w-[86%]">
