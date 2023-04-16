@@ -17,7 +17,7 @@ export interface ITweets {
   tweets: TweetWithUser[];
 }
 
-interface MutationResult {
+export interface MutationResult {
   ok: boolean;
 }
 

@@ -1,13 +1,18 @@
 import { NextPageContext } from "next";
-import { Tweet, User } from "@prisma/client";
+import { Reply, Tweet, User } from "@prisma/client";
 import client from "../../lib/server/db";
 import Layout from "../../components/tweetLayout";
-import { useForm } from "react-hook-form";
-import { IForm } from "..";
+import { set, useForm } from "react-hook-form";
+import { IForm, MutationResult } from "..";
 import TweetImage from "../../components/tweetImage";
+import useMutation from "../../lib/client/useMutation";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { convertTime } from "../../lib/client/utils";
 
 interface TweetWithUser extends Tweet {
   user: User;
+  replys: Reply[];
   _count: {
     likes: number;
     replys: number;
@@ -22,10 +27,17 @@ interface ITweet {
 export default function TweetDetail({ tweet }: ITweet) {
   const {
     register,
-    // handleSubmit,
+    handleSubmit,
     formState: { errors },
-    // setValue,
+    setValue,
   } = useForm<IForm>();
+
+  const [replies, setReplies] = useState<Reply[]>(tweet.replys || []);
+
+  const [reply, { data, loading }] = useMutation<MutationResult>("/api/reply");
+  const { data: replyData, mutate } = useSWR<any>(
+    `/api/reply?tweetId=${tweet.id}`
+  );
 
   const createdAt = new Intl.DateTimeFormat("en", {
     dateStyle: "medium",
@@ -37,6 +49,22 @@ export default function TweetDetail({ tweet }: ITweet) {
   const time = `${createdAt.split(":")[0]}:${createdAt.split(":")[1]} ${
     createdAt.split(" ")[4]
   }`;
+
+  const onSubmit = ({ text }: { text: string }) => {
+    reply({
+      text,
+      tweetId: tweet.id,
+    });
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    if (data) {
+      setValue("text", "");
+      mutate();
+      setReplies(replyData?.replies);
+    }
+  });
 
   return (
     <Layout>
@@ -89,14 +117,18 @@ export default function TweetDetail({ tweet }: ITweet) {
                 </p>
                 <p className="text-gray-500 text-sm">
                   <span className="mr-1 text-white font-semibold">
-                    {tweet._count.replys}
+                    {/* {tweet._count.replys} */}
+                    {replies.length}
                   </span>
                   Replys
                 </p>
               </div>
             </div>
 
-            <div className="w-full flex flex-col">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-full flex flex-col"
+            >
               <input
                 {...register("text", {
                   required: {
@@ -111,13 +143,41 @@ export default function TweetDetail({ tweet }: ITweet) {
               {errors.text && (
                 <p className="text-blue-400 text-sm">{errors.text.message}</p>
               )}
-
               <button
                 className={`place-self-end px-4 py-2 text-sm  text-white rounded-3xl bg-[#1C9BEF] dark:font-semibold hover:opacity-[0.8] `}
               >
                 Tweet
               </button>
-            </div>
+            </form>
+
+            {replies.map((reply: any) => (
+              <div
+                key={reply.id}
+                className="flex gap-3 py-2 flex-col w-full border-b dark:border-b-[#181818]"
+              >
+                <div className="flex w-full  items-center gap-3">
+                  <div
+                    className={`w-10 h-10 aspect-square rounded-full flex justify-center items-center text-white  ${
+                      reply.user ? `bg-red-500` : "bg-blue-800"
+                    } `}
+                  >
+                    <p className="text-lg font-semibold uppercase text-black dark:text-white">
+                      {reply.user.name[0]}
+                    </p>
+                  </div>
+                  <div className="flex justify-between -mt-4 w-full">
+                    <p className="place-self-start">{reply.user.name}</p>
+                    <p className="place-self-end text-gray-500 text-sm">
+                      {convertTime(reply.createdAt.toString())}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col px-1">
+                  <p className=" ">{reply.text}</p>
+                </div>
+              </div>
+            ))}
           </>
         )}
       </div>
@@ -136,6 +196,14 @@ export const getServerSideProps = async (context: NextPageContext) => {
         select: {
           likes: true,
           replys: true,
+        },
+      },
+      replys: {
+        include: {
+          user: true,
+        },
+        orderBy: {
+          createdAt: "desc",
         },
       },
     },
