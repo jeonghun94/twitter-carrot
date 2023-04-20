@@ -3,12 +3,12 @@ import { Reply, Tweet, User } from "@prisma/client";
 import client from "../../lib/server/db";
 import Layout from "../../components/tweetLayout";
 import { set, useForm } from "react-hook-form";
-import { IForm, MutationResult } from "..";
 import TweetImage from "../../components/tweetImage";
 import useMutation from "../../lib/client/useMutation";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { convertTime } from "../../lib/client/utils";
+import { convertTime, intlDate } from "../../lib/client/utils";
+import { IForm, MutationResult } from "@/pages";
 
 interface TweetWithUser extends Tweet {
   user: User;
@@ -34,17 +34,12 @@ export default function TweetDetail({ tweet }: ITweet) {
 
   const [replies, setReplies] = useState<Reply[]>(tweet.replys || []);
 
+  const [createdAt, setCreatedAt] = useState<string>("");
+
   const [reply, { data, loading }] = useMutation<MutationResult>("/api/reply");
   const { data: replyData, mutate } = useSWR<any>(
     `/api/reply?tweetId=${tweet.id}`
   );
-
-  const createdAt = new Intl.DateTimeFormat("en", {
-    dateStyle: "medium",
-    timeStyle: "medium",
-  }).format(new Date(tweet.createdAt));
-
-  // const date = ` ${createdAt.split(",")[0]}, ${createdAt.split(",")[1]}`;
 
   const time = `${createdAt.split(":")[0]}:${createdAt.split(":")[1]} ${
     createdAt.split(" ")[4]
@@ -56,6 +51,12 @@ export default function TweetDetail({ tweet }: ITweet) {
       tweetId: tweet.id,
     });
   };
+
+  useEffect(() => {
+    if (tweet.createdAt) {
+      setCreatedAt(intlDate(tweet.createdAt));
+    }
+  }, []);
 
   useEffect(() => {
     if (loading) return;
@@ -97,16 +98,11 @@ export default function TweetDetail({ tweet }: ITweet) {
 
               <div className="border-b py-3 flex items-center gap-3 dark:border-b-[#181818]">
                 <p className="text-gray-500 text-sm">
-                  {``}
                   {`${time.split(" ")[3]} ${time.split(" ")[4]} · ${
                     createdAt.split(",")[0]
-                  }, ${createdAt.split(",")[1]} · `}{" "}
-                  {/* {`${time.split(" ")[3]} ${time.split(" ")[4]} · ${
-                    createdAt.split(",")[0]
-                  }, ${createdAt.split(",")[1]} · `} */}
-                  <span className="font-semibold text-white">
-                    {" "}
-                    {tweet.views}{" "}
+                  }, ${createdAt.split(",")[1]} · `}
+                  <span className="font-semibold text-white mx-1">
+                    {tweet.views}
                   </span>
                   Views
                 </p>

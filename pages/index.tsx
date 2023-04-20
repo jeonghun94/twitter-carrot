@@ -34,6 +34,7 @@ const Home = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    getValues,
     watch,
   } = useForm<IForm>();
 

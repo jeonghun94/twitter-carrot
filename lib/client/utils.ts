@@ -37,3 +37,10 @@ export const scrollToBottom = () =>
 export const randomColor = () => {
   return `#${Math.round(Math.random() * 0xffffff).toString(16)}`;
 };
+
+export const intlDate = (date: Date) => {
+  return new Intl.DateTimeFormat("en", {
+    dateStyle: "medium",
+    timeStyle: "medium",
+  }).format(new Date(date));
+};
