@@ -26,10 +26,12 @@ export default function Layout({ children, isHome }: LayoutProps) {
     fetch("/api/logout").then(() => (window.location.href = "/"));
   };
 
+  const title = `${locationName} / Twitter`;
+
   return (
     <div className="w-full min-h-screen flex">
       <Head>
-        <title>{locationName} / Twitter</title>
+        <title>{title}</title>
         <link
           rel="shortcut icon"
           href="https://abs.twimg.com/favicons/twitter.2.ico"

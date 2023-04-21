@@ -45,7 +45,7 @@ const Home = () => {
     const photoIds = [];
 
     if (photo && photo.length > 0) {
-      setImageLoading(true);
+      // setImageLoading(true);
       for (let i = 0; i < photo.length; i++) {
         const form = new FormData();
         const { uploadURL } = await (await fetch(`/api/files`)).json();
@@ -56,7 +56,7 @@ const Home = () => {
           await fetch(uploadURL, { method: "POST", body: form })
         ).json();
         photoIds.push(id);
-        setImageLoading(false);
+        // setImageLoading(false);
       }
     }
 
@@ -75,8 +75,9 @@ const Home = () => {
     }
   }, [data]);
 
-  const [imageLoading, setImageLoading] = useState(false);
+  // const [imageLoading, setImageLoading] = useState(false);
   const photo = watch("photo");
+
   const [photos, setPhotos] = useState(0);
   const [photoPreview, setPhotoPreview] = useState("");
   const removePhoto = (idx: number) => {
@@ -171,8 +172,8 @@ const Home = () => {
                     <Image
                       alt="이미지를 불러올 수 없습니다:("
                       src={photo}
-                      layout="fill"
-                      objectFit="cover"
+                      // layout="fill"
+                      // objectFit="cover"
                       className="rounded-lg"
                     />
                     {idx === 0 && (
