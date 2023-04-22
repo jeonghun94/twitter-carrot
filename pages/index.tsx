@@ -76,6 +76,7 @@ const Home = () => {
   }, [data]);
 
   // const [imageLoading, setImageLoading] = useState(false);
+
   const photo = watch("photo");
 
   const [photos, setPhotos] = useState(0);

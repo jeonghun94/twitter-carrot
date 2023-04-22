@@ -13,7 +13,7 @@ interface MutationResult {
   error: string;
 }
 
-const createAccount = () => {
+export default function createAccount() {
   const router = useRouter();
 
   const [error, setError] = useState<string | null>(null);
@@ -86,6 +86,4 @@ const createAccount = () => {
       </form>
     </Layout>
   );
-};
-
-export default createAccount;
+}
