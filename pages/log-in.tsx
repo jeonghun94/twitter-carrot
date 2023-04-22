@@ -13,7 +13,7 @@ interface MutationResult {
   error: string;
 }
 
-const login = () => {
+const Login = () => {
   const router = useRouter();
   const [error, setError] = React.useState<string | null>(null);
   const { register, handleSubmit } = useForm<IForm>();
@@ -88,4 +88,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
