@@ -173,8 +173,9 @@ const Home = () => {
                     <Image
                       alt="이미지를 불러올 수 없습니다:("
                       src={photo}
-                      // layout="fill"
-                      // objectFit="cover"
+                      // fill="cover"
+                      width={100}
+                      height={100}
                       className="rounded-lg"
                     />
                     {idx === 0 && (
