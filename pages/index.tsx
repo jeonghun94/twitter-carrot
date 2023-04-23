@@ -218,7 +218,11 @@ const Home = () => {
           </div>
         </form>
       </div>
-      {tweetData && <Tweets tweets={tweetData.tweets} />}
+      {tweetData && tweetData.tweets?.length > 0 ? (
+        <Tweets tweets={tweetData.tweets} />
+      ) : (
+        <h1 className="text-center text-sm m-5">No Tweets.</h1>
+      )}
     </Layout>
   );
 };
