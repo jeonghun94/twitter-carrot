@@ -4,13 +4,14 @@ import { FaArrowLeft } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
 import { IoLogOut } from "react-icons/io5";
 import useUser from "../lib/client/useUser";
+import Link from "next/link";
 
 interface LayoutProps {
   children: React.ReactNode;
   isHome?: boolean;
 }
 
-export default function Layout({ children, isHome }: LayoutProps) {
+const Layout = ({ children, isHome }: LayoutProps) => {
   const router = useRouter();
   const locationName = isHome ? "Home" : "Tweet";
   const { user, isLoading } = useUser();
@@ -27,6 +28,8 @@ export default function Layout({ children, isHome }: LayoutProps) {
   };
 
   const title = `${locationName} / Twitter`;
+
+  const pathName = router.pathname;
 
   return (
     <div className="w-full min-h-screen flex">
@@ -72,20 +75,38 @@ export default function Layout({ children, isHome }: LayoutProps) {
 
         {isHome && (
           <div className="w-full flex border-b justify-between pb-3 dark:dark:border-b-[#181818]">
-            <p className="w-full text-center text-sm">
-              <span className="border-b-2 border-b-[#1C9BEF] pb-3">
-                {" "}
+            <Link
+              href={"/"}
+              className="w-full text-center text-sm text-gray-500"
+            >
+              <span
+                className={`${
+                  pathName === "/" ? "border-b-2 border-b-[#1C9BEF] pb-3" : ""
+                } `}
+              >
                 For you
               </span>
-            </p>
-            <p className="w-full text-center text-sm text-gray-500">
-              <span>Following</span>
-            </p>
+            </Link>
+            <Link
+              href={"/following"}
+              className="w-full text-center text-sm text-gray-500"
+            >
+              <span
+                className={`${
+                  pathName === "/following"
+                    ? "border-b-2 border-b-[#1C9BEF] pb-3"
+                    : ""
+                } `}
+              >
+                Following
+              </span>
+            </Link>
           </div>
         )}
         {children}
-        {/* <div className="w-full px-4 py-3  border-b dark:border-b-[#181818]"></div> */}
       </div>
     </div>
   );
-}
+};
+
+export default Layout;

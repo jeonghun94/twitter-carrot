@@ -28,7 +28,6 @@ interface TweetWithUser extends Tweet {
 const Home = () => {
   const { user, isLoading } = useUser();
   const { data: tweetData, mutate } = useSWR<ITweets>("/api/tweet");
-
   const {
     register,
     handleSubmit,
@@ -100,7 +99,9 @@ const Home = () => {
   }, [photo]);
 
   return isLoading ? (
-    <h1>Loading...</h1>
+    <div className="min-h-screen w-full flex justify-center items-center">
+      <h1>Loading</h1>
+    </div>
   ) : (
     <Layout isHome>
       <div className="w-full px-4 py-3  border-b dark:border-b-[#181818]">
