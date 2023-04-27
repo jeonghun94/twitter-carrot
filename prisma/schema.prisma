@@ -2,14 +2,16 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
   // provider = "sqlite"
   // url      = "file:./dev.db"
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model User {
@@ -24,6 +26,8 @@ model User {
   myTweets  Tweet[]  @relation("myTweets")
   likes     Like[]
   replys    Reply[]
+  followers User[]   @relation("FollowRelation")
+  following User[]   @relation("FollowRelation")
 }
 
 model Tweet {
