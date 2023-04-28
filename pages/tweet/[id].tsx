@@ -68,7 +68,7 @@ export default function TweetDetail({ tweet }: ITweet) {
   });
 
   return (
-    <Layout>
+    <Layout pageTitle="Tweet" subTitle="Tweet">
       <div className=" border-b  p-3 dark:border-[#181818]">
         {tweet.user && (
           <>

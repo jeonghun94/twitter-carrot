@@ -43,6 +43,9 @@ model Tweet {
   views       Int      @default(0)
   likes       Like[]
   replys      Reply[]
+
+  @@index([userId], name: "userId")
+  @@index([createdById], name: "createdById")
 }
 
 model Like {
@@ -53,6 +56,9 @@ model Like {
   userId    Int
   tweet     Tweet    @relation(fields: [tweetId], references: [id])
   tweetId   Int
+
+  @@index([userId], name: "userId")
+  @@index([tweetId], name: "tweetId")
 }
 
 model Reply {
@@ -64,4 +70,7 @@ model Reply {
   userId    Int
   tweet     Tweet    @relation(fields: [tweetId], references: [id])
   tweetId   Int
+
+  @@index([userId], name: "userId")
+  @@index([tweetId], name: "tweetId")
 }

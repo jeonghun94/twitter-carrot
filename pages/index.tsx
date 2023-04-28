@@ -103,7 +103,7 @@ const Home = () => {
       <h1>Loading</h1>
     </div>
   ) : (
-    <Layout isHome>
+    <Layout isHome pageTitle="Home" subTitle="Home">
       <div className="w-full px-4 py-3  border-b dark:border-b-[#181818]">
         <form
           onSubmit={handleSubmit(onSubmit)}

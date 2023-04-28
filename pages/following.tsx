@@ -103,7 +103,7 @@ const Home = () => {
       <h1>Loading</h1>
     </div>
   ) : (
-    <Layout isHome>
+    <Layout isHome pageTitle="follwing" subTitle="follwing">
       <div className="w-full px-4 py-3  border-b dark:border-b-[#181818]">
         <h1>준비중</h1>
       </div>
