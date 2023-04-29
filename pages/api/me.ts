@@ -13,10 +13,15 @@ async function handler(
       _count: {
         select: {
           tweets: true,
+          followers: true,
+          // followers: true,
+          // following: true,
         },
       },
     },
   });
+
+  console.log(profile);
 
   res.json({
     ok: true,
