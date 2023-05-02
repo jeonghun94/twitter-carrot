@@ -58,10 +58,12 @@ const Profile = () => {
           </p>
           <p className="flex items-center gap-3 text-gray-400">
             <span>
-              <strong className="text-white">1</strong> Following
+              <strong className="text-white">{user?._count?.following}</strong>{" "}
+              Following
             </span>
             <span>
-              <strong className="text-white">3</strong> Followers
+              <strong className="text-white">{user?._count?.followers}</strong>{" "}
+              Followers
             </span>
           </p>
         </div>

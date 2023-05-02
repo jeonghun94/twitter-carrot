@@ -14,14 +14,11 @@ async function handler(
         select: {
           tweets: true,
           followers: true,
-          // followers: true,
-          // following: true,
+          following: true,
         },
       },
     },
   });
-
-  console.log(profile);
 
   res.json({
     ok: true,
