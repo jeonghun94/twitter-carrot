@@ -66,6 +66,23 @@ const Profile = () => {
               Followers
             </span>
           </p>
+          <div className="flex justify-between w-full h-auto px-4 border-b  mt-4 dark:border-b-[#282828]">
+            <div className="relative flex flex-col justify-between pb-3  cursor-pointer">
+              Tweets
+              <div className="absolute h-1 bottom-0 w-full bg-[#1C9BEF] rounded-md"></div>
+            </div>
+            <div className="relative flex flex-col justify-between pb-3  cursor-pointer">
+              Replies
+              {/* <div className="absolute h-1 bottom-0 w-full bg-[#1C9BEF] rounded-md"></div> */}
+            </div>
+            <div className="relative flex flex-col justify-between pb-3  cursor-pointer">
+              Likes
+              {/* <div className="absolute h-1 bottom-0 w-full bg-[#1C9BEF] rounded-md"></div> */}
+            </div>
+          </div>
+          <div className="px-1 py-2">
+            <h1 className="text-xl font-bold">Who to follow</h1>
+          </div>
         </div>
       </div>
     </Layout>

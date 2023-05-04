@@ -80,6 +80,7 @@ const Home = () => {
 
   const [photos, setPhotos] = useState(0);
   const [photoPreview, setPhotoPreview] = useState("");
+
   const removePhoto = (idx: number) => {
     const newPhotoPreview = photoPreview.split(",");
     newPhotoPreview.splice(idx, 1);
@@ -106,6 +107,8 @@ const Home = () => {
     <Layout isHome pageTitle="follwing" subTitle="follwing">
       <div className="w-full px-4 py-3  border-b dark:border-b-[#181818]">
         <h1>준비중</h1>
+
+        <div className="w-full h-4 p2 border"></div>
       </div>
     </Layout>
   );
