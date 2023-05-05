@@ -1,17 +1,10 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  // provider = "sqlite"
-  // url      = "file:./dev.db"
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -26,8 +19,8 @@ model User {
   myTweets  Tweet[]  @relation("myTweets")
   likes     Like[]
   replys    Reply[]
-  followers User[]   @relation("FollowRelation")
-  following User[]   @relation("FollowRelation")
+  // followers User[]   @relation("FollowRelation")
+  // following User[]   @relation("FollowRelation")
 }
 
 model Tweet {
