@@ -93,9 +93,10 @@ const Profile = () => {
             </span>
           </p>
           <div className="flex justify-between w-full h-auto px-4 border-b  mt-4 dark:border-b-[#282828]">
-            {["tweets", "replies", "likes"].map((tab) => {
+            {["tweets", "replies", "likes"].map((tab, idx) => {
               return (
                 <div
+                  key={idx}
                   className="relative flex flex-col justify-between pb-3  cursor-pointer"
                   data-tab-menu={tab}
                   onClick={handleTabMenu}
