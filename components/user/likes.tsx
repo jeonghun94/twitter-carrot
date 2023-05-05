@@ -1,16 +1,21 @@
+import Tweets from "../tweets";
 import useSWR from "swr";
 
-const Replies = () => {
+const Likes = () => {
   const { data } = useSWR("/api/user/likes");
+
+  const t: any = [];
+
+  data?.likes.find((like: any) => {
+    t.push(like.tweet);
+  });
 
   return (
     <div>
       {data?.likes.length > 0 ? (
-        data?.likes.map((reply: any) => (
-          <div key={reply.id}>
-            <h1>{reply.text}</h1>
-          </div>
-        ))
+        <>
+          <Tweets tweets={t} />
+        </>
       ) : (
         <div className="flex flex-col gap-1 p-7">
           <h1 className="text-3xl font-bold">
@@ -26,4 +31,4 @@ const Replies = () => {
   );
 };
 
-export default Replies;
+export default Likes;

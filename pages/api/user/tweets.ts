@@ -9,22 +9,18 @@ async function handler(
 ) {
   const userId = Number(req.session.user?.id);
 
-  const likes = await client.like.findMany({
+  const tweets = await client.tweet.findMany({
     where: {
       userId,
     },
     include: {
-      tweet: {
-        include: {
-          user: true,
-        },
-      },
+      user: true,
     },
   });
 
   res.json({
     ok: true,
-    likes,
+    tweets,
   });
 }
 

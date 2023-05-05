@@ -55,7 +55,9 @@ const Layout = ({ children, isHome, subTitle, pageTitle }: LayoutProps) => {
           className="ml-1 w-8 h-8 cursor-pointer"
         /> */}
         {user && (
-          <div className="flex text-lg font-semibold justify-center items-center uppercase w-10 h-10 bg-red-500 text-white rounded-full">
+          <div
+            className={`flex text-lg font-semibold justify-center items-center uppercase w-10 h-10 bg-${user.color} text-white rounded-full`}
+          >
             {user.name[0]}
           </div>
         )}

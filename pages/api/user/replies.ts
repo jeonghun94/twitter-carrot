@@ -14,7 +14,11 @@ async function handler(
       userId,
     },
     include: {
-      user: true,
+      tweet: {
+        include: {
+          user: true,
+        },
+      },
     },
   });
 

@@ -1,18 +1,32 @@
-import useMutation from "@/lib/client/useMutation";
-import { useEffect } from "react";
+import Tweets from "../tweets";
 import useSWR from "swr";
 
 const Replies = () => {
-  const { data } = useSWR("/api/user/replies");
+  const { data } = useSWR("/api/user/tweets");
+
+  const t: any = [];
+
+  data?.tweets.find((like: any) => {
+    t.push(like);
+  });
 
   return (
-    <div className="px-1 py-2">
-      <h1 className="text-xl font-bold">Who to follow</h1>
-      {data?.replies.map((reply: any) => (
-        <div key={reply.id}>
-          <h1>{reply.text}</h1>
+    <div>
+      {data?.tweets.length > 0 ? (
+        <>
+          <Tweets tweets={t} />
+        </>
+      ) : (
+        <div className="flex flex-col gap-1 p-7">
+          <h1 className="text-3xl font-bold">
+            You don’t have any <br /> likes yet
+          </h1>
+          <h3 className="text-gray-500 text-sm font-semibold">
+            Tap the heart on any Tweet to show it some love. <br /> When you do,
+            it’ll show up here.
+          </h3>
         </div>
-      ))}
+      )}
     </div>
   );
 };
