@@ -27,7 +27,7 @@ const Layout = ({ children, isHome, subTitle, pageTitle }: LayoutProps) => {
     fetch("/api/logout").then(() => (window.location.href = "/"));
   };
 
-  const title = `${pageTitle} / Twitter`;
+  const title = `${pageTitle ? `${pageTitle} /` : ""}  Twitter`;
   const pathName = router.pathname;
 
   return (

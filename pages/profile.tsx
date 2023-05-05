@@ -2,6 +2,10 @@ import useUser from "../lib/client/useUser";
 import { Tweet, User } from "@prisma/client";
 import Layout from "../components/tweetLayout";
 import { AiFillCalendar } from "react-icons/ai";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+import { capitalizeFirstLetter } from "@/lib/client/utils";
 
 export interface IForm {
   text: string;
@@ -20,8 +24,26 @@ interface TweetWithUser extends Tweet {
   user: User;
 }
 
+const UserTweets = dynamic(() => import("@/components/user/tweets"), {
+  loading: () => <p>Loading...</p>,
+});
+
+const UserReplies = dynamic(() => import("@/components/user/replies"), {
+  loading: () => <p>Loading...</p>,
+});
+
+const UserLikes = dynamic(() => import("@/components/user/likes"), {
+  loading: () => <p>Loading...</p>,
+});
+
 const Profile = () => {
   const { user, isLoading } = useUser();
+  const [tabMenu, setTabMenu] = useState<string>("tweets");
+
+  const handleTabMenu = (e: any) => {
+    const { tabMenu } = e.target.dataset;
+    setTabMenu(tabMenu);
+  };
 
   const subTitle = () => {
     return (
@@ -46,9 +68,13 @@ const Profile = () => {
           <div className="flex items-center -mt-16 aspect-square rounded-full p-3 text-3xl box-border bg-blue-600 border dark:border-black">
             정훈
           </div>
-          <button className="w-1.5/5 h-10 flex items-center text-sm px-2 rounded-3xl border font-bold hover:opacity-[0.8]">
+
+          <Link
+            href="/edit"
+            className="w-1.5/5 h-10 flex items-center text-sm px-2 rounded-3xl border font-bold hover:opacity-[0.8]"
+          >
             Edit profile
-          </button>
+          </Link>
         </div>
         <div className="h-atuo px-5">
           <p className="text-2xl  font-semibold">{user.name}</p>
@@ -67,22 +93,25 @@ const Profile = () => {
             </span>
           </p>
           <div className="flex justify-between w-full h-auto px-4 border-b  mt-4 dark:border-b-[#282828]">
-            <div className="relative flex flex-col justify-between pb-3  cursor-pointer">
-              Tweets
-              <div className="absolute h-1 bottom-0 w-full bg-[#1C9BEF] rounded-md"></div>
-            </div>
-            <div className="relative flex flex-col justify-between pb-3  cursor-pointer">
-              Replies
-              {/* <div className="absolute h-1 bottom-0 w-full bg-[#1C9BEF] rounded-md"></div> */}
-            </div>
-            <div className="relative flex flex-col justify-between pb-3  cursor-pointer">
-              Likes
-              {/* <div className="absolute h-1 bottom-0 w-full bg-[#1C9BEF] rounded-md"></div> */}
-            </div>
+            {["tweets", "replies", "likes"].map((tab) => {
+              return (
+                <div
+                  className="relative flex flex-col justify-between pb-3  cursor-pointer"
+                  data-tab-menu={tab}
+                  onClick={handleTabMenu}
+                >
+                  {capitalizeFirstLetter(tab)}
+                  {tabMenu === tab && (
+                    <div className="absolute h-1 bottom-0 w-full bg-[#1C9BEF] rounded-md"></div>
+                  )}
+                </div>
+              );
+            })}
           </div>
-          <div className="px-1 py-2">
-            <h1 className="text-xl font-bold">Who to follow</h1>
-          </div>
+
+          {tabMenu === "tweets" && <UserTweets />}
+          {tabMenu === "replies" && <UserReplies />}
+          {tabMenu === "likes" && <UserLikes />}
         </div>
       </div>
     </Layout>

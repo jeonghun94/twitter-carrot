@@ -44,3 +44,7 @@ export const intlDate = (date: Date) => {
     timeStyle: "medium",
   }).format(new Date(date));
 };
+
+export const capitalizeFirstLetter = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};

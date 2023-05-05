@@ -101,7 +101,7 @@ const EditProfile: NextPage = () => {
   };
   return (
     <form onSubmit={handleSubmit(onValid)}>
-      <Layout>
+      <Layout pageTitle="Edit-Profile" subTitle="Edit-Profile">
         <div className="py-10 px-4 space-y-4">
           <div className="flex justify-center items-center">
             {avatarPreview ? (
