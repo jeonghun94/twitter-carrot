@@ -10,7 +10,12 @@ export default function Tweets({ tweets }: ITweets) {
         <Link href={`/tweet/${tweet.id}`} key={idx}>
           <div className="w-full px-4 py-3 border-b cursor-pointer dark:border-b-[#181818] ">
             <div className="flex items-start gap-3 ">
-              <div className="w-10 h-10 aspect-square rounded-full bg-blue-800 flex justify-center items-center text-white">
+              <div
+                className="w-10 h-10 aspect-square rounded-full bg-blue-800 flex justify-center items-center text-white"
+                style={{
+                  backgroundColor: String(tweet.user.color),
+                }}
+              >
                 <p className="text-lg font-semibold uppercase">
                   {tweet.user.name[0]}
                 </p>

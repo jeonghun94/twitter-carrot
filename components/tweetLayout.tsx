@@ -56,7 +56,10 @@ const Layout = ({ children, isHome, subTitle, pageTitle }: LayoutProps) => {
         /> */}
         {user && (
           <div
-            className={`flex text-lg font-semibold justify-center items-center uppercase w-10 h-10 bg-${user.color} text-white rounded-full`}
+            className={`flex text-lg font-semibold justify-center items-center uppercase w-10 h-10 text-white rounded-full`}
+            style={{
+              backgroundColor: user.color,
+            }}
           >
             {user.name[0]}
           </div>
