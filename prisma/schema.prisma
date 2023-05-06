@@ -8,19 +8,28 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  color     String?
-  avatarUrl String?
-  tweets    Tweet[]
-  myTweets  Tweet[]  @relation("myTweets")
-  likes     Like[]
-  replys    Reply[]
-  // followers User[]   @relation("FollowRelation")
-  // following User[]   @relation("FollowRelation")
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  name       String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  color      String?
+  avatarUrl  String?
+  tweets     Tweet[]
+  myTweets   Tweet[]   @relation("myTweets")
+  likes      Like[]
+  replys     Reply[]
+  followedBy Follows[] @relation("following")
+  following  Follows[] @relation("follower")
+}
+
+model Follows {
+  follower    User @relation("follower", fields: [followerId], references: [id])
+  followerId  Int
+  following   User @relation("following", fields: [followingId], references: [id])
+  followingId Int
+
+  @@id([followerId, followingId])
 }
 
 model Tweet {

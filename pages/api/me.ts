@@ -13,7 +13,7 @@ async function handler(
       _count: {
         select: {
           tweets: true,
-          followers: true,
+          followedBy: true,
           following: true,
         },
       },

@@ -111,9 +111,10 @@ const Home = () => {
         >
           {user && (
             <div
-              className={`w-10 h-10 aspect-square rounded-full flex justify-center items-center text-white  ${
-                user ? `bg-red-500` : "bg-blue-800"
-              } `}
+              className="w-10 h-10 aspect-square rounded-full flex justify-center items-center text-white"
+              style={{
+                backgroundColor: user.color,
+              }}
             >
               <p className="text-lg font-semibold uppercase text-black dark:text-white">
                 {user.name[0]}
