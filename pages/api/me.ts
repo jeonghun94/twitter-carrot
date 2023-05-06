@@ -10,14 +10,18 @@ async function handler(
   const profile = await client.user.findUnique({
     where: { id: req.session.user?.id },
     include: {
-      _count: {
-        select: {
-          tweets: true,
-          followedBy: true,
-          following: true,
-        },
-      },
+      tweets: true,
+      _count: true,
     },
+    // include: {
+    //   _count: {
+    //     select: {
+    //       tweets: true,
+    //       followedBy: true,
+    //       following: true,
+    //     },
+    //   },
+    // },
   });
 
   res.json({
