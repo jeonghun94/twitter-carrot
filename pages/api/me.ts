@@ -13,15 +13,6 @@ async function handler(
       tweets: true,
       _count: true,
     },
-    // include: {
-    //   _count: {
-    //     select: {
-    //       tweets: true,
-    //       followedBy: true,
-    //       following: true,
-    //     },
-    //   },
-    // },
   });
 
   res.json({
