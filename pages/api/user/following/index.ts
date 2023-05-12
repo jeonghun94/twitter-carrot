@@ -9,13 +9,24 @@ async function handler(
 ) {
   const userId = req.session.user?.id;
 
-  const followings = await client.follows.findMany({
+  const user = await client.user.findFirst({
     where: {
-      followingId: userId,
+      id: userId,
+    },
+    include: {
+      following: true,
     },
   });
 
-  const followingIds = followings.map((following) => following.followerId);
+  // console.log(followingIds2?.following.map((f) => f.followerId));
+
+  // const followings = await client.follows.findMany({
+  //   where: {
+  //     followingId: userId,
+  //   },
+  // });
+
+  const followingIds = user?.following.map((following) => following.followerId);
 
   const tweets = await client.tweet.findMany({
     where: {
