@@ -1,14 +1,11 @@
 import type { NextPage } from "next";
-// import Input from "@components/input";
-// import useUser from "@libs/client/useUser";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-// import useMutation from "@libs/client/useMutation";
 import Image from "next/image";
 import useUser from "../lib/client/useUser";
 import useMutation from "../lib/client/useMutation";
 import Layout from "../components/tweetLayout";
-// import Layout from "@components/layouts/layout";
+import { BsFillCameraFill, BsCamera } from "react-icons/bs";
 
 interface EditProfileForm {
   email?: string;
@@ -101,44 +98,45 @@ const EditProfile: NextPage = () => {
   };
   return (
     <form onSubmit={handleSubmit(onValid)}>
-      <Layout pageTitle="Edit-Profile" subTitle="Edit-Profile">
-        <div className="py-10 px-4 space-y-4">
+      <Layout pageTitle="Edit Profile" subTitle="Edit profile" sideBar={false}>
+        <div className="-mt-3 space-y-4">
           <div className="flex justify-center items-center">
             {avatarPreview ? (
-              <Image
-                alt="이미지를 불러올 수 없습니다:("
-                src={avatarPreview}
-                className="relative rounded-full"
-                width={100}
-                height={100}
-              />
-            ) : (
-              <div className="w-14 h-14 rounded-full bg-slate-500" />
-            )}
-            <label
-              htmlFor="picture"
-              className="relative  -bottom-7 right-7 bg-white cursor-pointer p-1 border border-gray-300 rounded-full shadow-sm text-xs  text-gray-700"
-            >
-              <svg
-                className="w-5 h-5 text-gray-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z"
-                  clipRule="evenodd"
+              <div className="w-full relative">
+                <Image
+                  alt="이미지를 불러올 수 없습니다:("
+                  src={avatarPreview}
+                  className=" aspect-square w-full h-48  "
+                  width={100}
+                  height={100}
                 />
-              </svg>
-              <input
-                {...register("avatar")}
-                id="picture"
-                type="file"
-                className="hidden"
-                accept="image/*"
-              />
-            </label>
+
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gray-500 bg-opacity-25 flex justify-center items-center">
+                  <div className=" w-8 h-8 flex justify-center items-center font-semibold bg-[#3E3435] aspect-square rounded-full">
+                    X
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div
+                className="w-14 h-14 rounded-full bg-transparent flex justify-center
+              items-center "
+              >
+                <label
+                  htmlFor="picture"
+                  className="cursor-pointer p-1  border-gray-300 rounded-full shadow-sm text-xs  text-gray-700"
+                >
+                  <BsCamera className="w-5 h-5 dark:text-white" />
+                  <input
+                    {...register("avatar")}
+                    id="picture"
+                    type="file"
+                    className="hidden"
+                    accept="image/*"
+                  />
+                </label>
+              </div>
+            )}
           </div>
           {/* <Input
             register={register("name")}

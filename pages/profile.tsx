@@ -63,7 +63,7 @@ const Profile = () => {
   ) : (
     <Layout isHome={false} pageTitle="Profile" subTitle={subTitle()}>
       <div>
-        <div className="w-full h-36 bg-gray-600"></div>
+        <div className="w-full h-36 bg-[#333639]"></div>
         <div className=" w-full flex items-center justify-between p-2">
           <div className="flex items-center -mt-16 aspect-square rounded-full p-3 text-3xl box-border bg-blue-600 border dark:border-black">
             정훈
