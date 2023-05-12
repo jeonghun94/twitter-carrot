@@ -13,10 +13,6 @@ async function handler(
     where: {
       followingId: userId,
     },
-
-    select: {
-      followerId: true,
-    },
   });
 
   const followingIds = followings.map((following) => following.followerId);
