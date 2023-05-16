@@ -21,6 +21,8 @@ model User {
   replys    Reply[]
   followers Follows[] @relation("follower")
   following Follows[] @relation("following")
+
+  @@index([id], name: "id")
 }
 
 model Follows {

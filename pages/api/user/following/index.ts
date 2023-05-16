@@ -2,6 +2,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import withHandler, { ResponseType } from "@/lib/server/withHandler";
 import { withApiSession } from "@/lib/server/withSession";
 import client from "@/lib/server/db";
+import { Follows, User } from "@prisma/client";
+
+interface UserWithFollowing extends User {
+  following: Follows[];
+}
 
 async function handler(
   req: NextApiRequest,
