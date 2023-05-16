@@ -8,7 +8,8 @@ import useMutation from "../../lib/client/useMutation";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { convertTime, intlDate } from "../../lib/client/utils";
-import { IForm, MutationResult } from "@/pages";
+import { IForm } from "../profile";
+import { MutationResult } from "../profile";
 
 interface TweetWithUser extends Tweet {
   user: User;
