@@ -11,11 +11,11 @@ interface IForm {
 interface MutationResult {
   ok: boolean;
   error: string;
+  email?: string;
 }
 
 const CreateAccount = () => {
   const router = useRouter();
-
   const [error, setError] = useState<string | null>(null);
   const {
     register,
@@ -31,7 +31,12 @@ const CreateAccount = () => {
 
   useEffect(() => {
     if (data?.ok) {
-      router.push("/log-in");
+      // router.push("/log-in");
+
+      router.push({
+        pathname: "/log-in",
+        query: { email: data?.email },
+      });
     } else {
       if (data?.error) setError(data.error);
       setTimeout(() => {

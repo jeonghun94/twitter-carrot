@@ -77,6 +77,7 @@ const Login = () => {
               type="email"
               name="email"
               id="email"
+              value={router.query.email ? router.query.email : ""}
             />
           </label>
         </div>

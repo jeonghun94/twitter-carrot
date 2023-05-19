@@ -21,7 +21,7 @@ export default async function handler(
     return;
   }
 
-  await client.user.create({
+  const { email: userEmail } = await client.user.create({
     data: {
       name,
       email,
@@ -31,5 +31,6 @@ export default async function handler(
 
   res.send({
     ok: true,
+    email: userEmail,
   });
 }
