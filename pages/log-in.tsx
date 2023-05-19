@@ -19,16 +19,16 @@ const Login = () => {
   const { register, handleSubmit } = useForm<IForm>();
 
   const [login, { loading, data }] = useMutation<MutationResult>("/api/login");
-  const submitting = (validForm: IForm) => {
+  const submitting = async (validForm: IForm) => {
     if (loading) return;
-    login(validForm);
+    await login(validForm);
   };
 
   useEffect(() => {
-    if (data?.ok) {
+    if (data && data.ok) {
       router.push("/");
     } else {
-      if (data?.error) setError(data.error);
+      if (data && data.error) setError(data.error);
       setTimeout(() => {
         setError(null);
       }, 3000);
