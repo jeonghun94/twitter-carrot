@@ -71,7 +71,7 @@ const Profile = () => {
 
           <Link
             href="/edit"
-            className="w-1.5/5 h-10 flex items-center text-sm px-2 rounded-3xl border font-bold hover:opacity-[0.8]"
+            className="w-1.5/5 h-10  flex items-center text-sm px-2 rounded-3xl border font-bold hover:opacity-[0.8]"
           >
             Edit profile
           </Link>

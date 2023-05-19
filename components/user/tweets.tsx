@@ -19,7 +19,7 @@ const Replies = () => {
       ) : (
         <div className="flex flex-col gap-1 p-7">
           <h1 className="text-3xl font-bold">
-            You don’t have any <br /> likes yet
+            You don’t have any <br /> tweets yet
           </h1>
           <h3 className="text-gray-500 text-sm font-semibold">
             Tap the heart on any Tweet to show it some love. <br /> When you do,

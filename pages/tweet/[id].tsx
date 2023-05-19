@@ -158,9 +158,10 @@ export default function TweetDetail({ tweet }: ITweet) {
               >
                 <div className="flex w-full  items-center gap-3">
                   <div
-                    className={`w-10 h-10 aspect-square rounded-full flex justify-center items-center text-white  ${
-                      reply.user ? `bg-red-500` : "bg-blue-800"
-                    } `}
+                    className={`w-10 h-10 aspect-square rounded-full flex justify-center items-center text-white `}
+                    style={{
+                      backgroundColor: String(reply.user?.color),
+                    }}
                   >
                     <p className="text-lg font-semibold uppercase text-black dark:text-white">
                       {reply.user.name[0]}

@@ -3,22 +3,36 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
   name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   color     String?
   avatarUrl String?
   tweets    Tweet[]
-  myTweets  Tweet[]  @relation("myTweets")
+  myTweets  Tweet[]   @relation("myTweets")
   likes     Like[]
   replys    Reply[]
+  followers Follows[] @relation("followers")
+  following Follows[] @relation("following")
+}
+
+model Follows {
+  id          Int  @id @default(autoincrement())
+  follower    User @relation("followers", fields: [followerId], references: [id])
+  followerId  Int
+  following   User @relation("following", fields: [followingId], references: [id])
+  followingId Int
+
+  @@index([followerId])
+  @@index([followingId])
 }
 
 model Tweet {
