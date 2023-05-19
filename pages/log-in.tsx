@@ -16,7 +16,7 @@ interface MutationResult {
 const Login = () => {
   const router = useRouter();
   const [error, setError] = React.useState<string | null>(null);
-  const { register, handleSubmit } = useForm<IForm>();
+  const { register, handleSubmit, getValues } = useForm<IForm>();
 
   const [login, { loading, data }] = useMutation<MutationResult>("/api/login");
   const submitting = async (validForm: IForm) => {
@@ -77,7 +77,9 @@ const Login = () => {
               type="email"
               name="email"
               id="email"
-              value={router.query.email ? router.query.email : ""}
+              value={
+                router.query.email ? router.query.email : getValues("email")
+              }
             />
           </label>
         </div>
