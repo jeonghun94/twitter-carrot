@@ -18,14 +18,6 @@ async function handler(
     },
   });
 
-  // // console.log(followingIds2?.following.map((f) => f.followerId));
-
-  // const followings = await client.follows.findMany({
-  //   where: {
-  //     followingId: userId,
-  //   },
-  // });
-
   const followingIds = user?.following.map((following) => following.followerId);
 
   const tweets = await client.tweet.findMany({
@@ -45,10 +37,6 @@ async function handler(
   res.json({
     ok: true,
     tweets,
-  });
-
-  res.json({
-    ok: true,
   });
 }
 
