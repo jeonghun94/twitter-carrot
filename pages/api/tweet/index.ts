@@ -22,16 +22,16 @@ async function handler(
     });
   } else {
     const { text, photoId } = req.body;
-    const wordsWithHash = text.match(/#[^\s#]+/g).join(", ");
+    // const wordsWithHash = text.match(/#[^\s#]+/g).join(", ");
 
-    const wordsWithoutHash = text
-      .split(/\s+/)
-      .filter((word: string) => !word.startsWith("#"));
+    // const wordsWithoutHash = text
+    //   .split(/\s+/)
+    //   .filter((word: string) => !word.startsWith("#"));
 
-    console.log(wordsWithoutHash);
-    console.log(wordsWithHash);
+    // console.log(wordsWithoutHash);
+    // console.log(wordsWithHash);
 
-    console.log(text);
+    // console.log(text);
 
     await client.tweet.create({
       data: {
