@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-const startGithubLogin = (req: NextApiRequest, res: NextApiResponse) => {
+const handler = (req: NextApiRequest, res: NextApiResponse) => {
   const baseUrl = "https://github.com/login/oauth/authorize";
   const config: any = {
     client_id: process.env.GH_CLIENT,
@@ -12,4 +12,4 @@ const startGithubLogin = (req: NextApiRequest, res: NextApiResponse) => {
   return res.redirect(finalUrl);
 };
 
-export default startGithubLogin;
+export default handler;

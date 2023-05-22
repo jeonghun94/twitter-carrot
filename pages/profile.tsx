@@ -65,8 +65,13 @@ const Profile = () => {
       <div>
         <div className="w-full h-36 bg-[#333639]"></div>
         <div className=" w-full flex items-center justify-between p-2">
-          <div className="flex items-center -mt-16 aspect-square rounded-full p-3 text-3xl box-border bg-blue-600 border dark:border-black">
-            정훈
+          <div
+            className="flex items-center -mt-16 aspect-square rounded-full p-3 text-3xl box-border  border dark:border-black"
+            style={{
+              backgroundColor: String(user?.color),
+            }}
+          >
+            {user?.name}
           </div>
 
           <Link
