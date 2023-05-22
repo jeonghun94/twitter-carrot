@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { withApiSession } from "@/lib/server/withSession";
 import withHandler from "@/lib/server/withHandler";
 import client from "../../../../lib/server/db";
+import { randomColor } from "@/lib/client/utils";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const baseUrl = "https://github.com/login/oauth/access_token";
@@ -61,6 +62,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         data: {
           email: emailObj.email,
           name: userData.name,
+          color: randomColor().toUpperCase(),
         },
       });
       req.session.user = user;
