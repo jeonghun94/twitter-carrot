@@ -22,7 +22,17 @@ async function handler(
     });
   } else {
     const { text, photoId } = req.body;
-    console.log(photoId, "photoId");
+    const wordsWithHash = text.match(/#[^\s#]+/g).join(", ");
+
+    const wordsWithoutHash = text
+      .split(/\s+/)
+      .filter((word: string) => !word.startsWith("#"));
+
+    console.log(wordsWithoutHash);
+    console.log(wordsWithHash);
+
+    console.log(text);
+
     await client.tweet.create({
       data: {
         text,

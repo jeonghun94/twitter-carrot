@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useMutation from "../lib/client/useMutation";
 import Layout from "../components/layout";
+import Link from "next/link";
 
 interface IForm {
   email: string;
@@ -38,8 +39,9 @@ const Login = () => {
   return (
     <Layout isLogin error={error}>
       <form onSubmit={handleSubmit(submitting)} className="w-full">
-        <button
+        <Link
           type="button"
+          href="/api/auth/github/start"
           className=" flex justify-center gap-2 border border-gray-300 rounded-3xl p-2 w-full cursor-pointer placeholder:text-gray-600 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 ${error && `border-red-500`} dark:bg-white dark:text-black"
           placeholder="이메일 주소"
         >
@@ -57,7 +59,7 @@ const Login = () => {
             ></path>
           </svg>
           Github 계정으로 로그인
-        </button>
+        </Link>
         <div className="w-full grid grid-cols-9 place-items-center  my-2">
           <div className="w-full col-span-4 h-1 border-b border-gray-300 divide-x-2"></div>
           <span className=" text-md text-center dark:font-semibold">또는</span>
