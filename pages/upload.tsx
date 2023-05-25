@@ -5,6 +5,7 @@ import { ITweets } from ".";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Avatar from "@/components/user/avartar";
 
 interface IForm {
   text: string;
@@ -94,18 +95,7 @@ const Upload = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex items-start gap-2 "
         >
-          {user && (
-            <div
-              className="w-10 h-10 aspect-square rounded-full flex justify-center items-center text-white"
-              style={{
-                backgroundColor: user.color,
-              }}
-            >
-              <p className="text-lg font-semibold uppercase text-black dark:text-white">
-                {user.name[0]}
-              </p>
-            </div>
-          )}
+          <Avatar user={user} size="10" />
 
           <div className="w-full flex flex-col">
             <input

@@ -5,7 +5,8 @@ import Image from "next/image";
 import useUser from "../lib/client/useUser";
 import useMutation from "../lib/client/useMutation";
 import Layout from "../components/tweetLayout";
-import { BsFillCameraFill, BsCamera } from "react-icons/bs";
+import { BsCamera } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 interface EditProfileForm {
   email?: string;
@@ -14,7 +15,6 @@ interface EditProfileForm {
   avatar?: FileList;
   formErrors?: string;
 }
-
 interface EditProfileResponse {
   ok: boolean;
   error?: string;
@@ -22,30 +22,19 @@ interface EditProfileResponse {
 
 const EditProfile: NextPage = () => {
   const { user } = useUser();
+  const router = useRouter();
   const {
     register,
-    setValue,
     handleSubmit,
     setError,
     formState: { errors },
     watch,
   } = useForm<EditProfileForm>();
-  useEffect(() => {
-    if (user?.name) setValue("name", user.name);
-    if (user?.avatar)
-      setAvatarPreview(
-        `https://imagedelivery.net/jhi2XPYSyyyjQKL_zc893Q/${user?.avatar}/avatar`
-      );
-  }, [user, setValue]);
+
   const [editProfile, { data, loading }] =
-    useMutation<EditProfileResponse>(`/api/users/me`);
-  const onValid = async ({ email, phone, name, avatar }: EditProfileForm) => {
+    useMutation<EditProfileResponse>(`/api/user/me`);
+  const onValid = async ({ name, avatar }: EditProfileForm) => {
     if (loading) return;
-    if (email === "" && phone === "" && name === "") {
-      return setError("formErrors", {
-        message: "Email OR Phone number are required. You need to choose one.",
-      });
-    }
     if (avatar && avatar.length > 0 && user) {
       const { uploadURL } = await (await fetch(`/api/files`)).json();
       const form = new FormData();
@@ -59,25 +48,17 @@ const EditProfile: NextPage = () => {
           body: form,
         })
       ).json();
+
       editProfile({
-        email,
-        phone,
         name,
         avatarId,
       });
     } else {
       editProfile({
-        email,
-        phone,
         name,
       });
     }
   };
-  useEffect(() => {
-    if (data && !data.ok && data.error) {
-      setError("formErrors", { message: data.error });
-    }
-  }, [data, setError]);
   const [avatarPreview, setAvatarPreview] = useState("");
   const avatar = watch("avatar");
   useEffect(() => {
@@ -87,18 +68,32 @@ const EditProfile: NextPage = () => {
     }
   }, [avatar]);
 
-  const B = () => {
+  useEffect(() => {
+    if (data && data?.ok) {
+      router.push("/profile");
+    }
+  }, [data]);
+
+  const handelCancel = () => {
+    avatarPreview ? setAvatarPreview("") : "";
+  };
+
+  const actionBtn = () => {
     return (
-      <>
-        <button className="text-gray-500">
-          {loading ? "Loading..." : "완료"}
-        </button>
-      </>
+      <button className="px-4 py-1 bg-white text-black font-semibold rounded-2xl hover:bg-opacity-80">
+        {loading ? "Loading..." : "Save"}
+      </button>
     );
   };
+
   return (
     <form onSubmit={handleSubmit(onValid)}>
-      <Layout pageTitle="Edit Profile" subTitle="Edit profile" sideBar={false}>
+      <Layout
+        pageTitle="Edit Profile"
+        subTitle="Edit profile"
+        sideBar={false}
+        actionBtn={actionBtn()}
+      >
         <div className="-mt-3 space-y-4">
           <div className="flex justify-center items-center">
             {avatarPreview ? (
@@ -112,14 +107,17 @@ const EditProfile: NextPage = () => {
                 />
 
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gray-500 bg-opacity-25 flex justify-center items-center">
-                  <div className=" w-8 h-8 flex justify-center items-center font-semibold bg-[#3E3435] aspect-square rounded-full">
+                  <button
+                    className=" w-8 h-8 flex justify-center items-center font-semibold bg-[#3E3435] aspect-square rounded-full"
+                    onClick={handelCancel}
+                  >
                     X
-                  </div>
+                  </button>
                 </div>
               </div>
             ) : (
               <div
-                className="w-14 h-14 rounded-full bg-transparent flex justify-center
+                className="w-14 h-32 rounded-full bg-transparent flex justify-center
               items-center "
               >
                 <label
@@ -138,19 +136,11 @@ const EditProfile: NextPage = () => {
               </div>
             )}
           </div>
-          {/* <Input
-            register={register("name")}
-            required={false}
-            label="닉네임"
-            name="name"
-            type="text"
-          /> */}
           {errors.formErrors ? (
             <span className="my-2 text-orange-500 font-medium text-center block">
               {errors.formErrors.message}
             </span>
           ) : null}
-          <button>{loading ? "Loading..." : "완료"}</button>
         </div>
       </Layout>
     </form>

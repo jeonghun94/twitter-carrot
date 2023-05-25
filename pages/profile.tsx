@@ -6,6 +6,8 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { capitalizeFirstLetter } from "@/lib/client/utils";
+import Avatar from "@/components/user/avartar";
+// import Image from "next/image";
 
 export interface IForm {
   text: string;
@@ -65,14 +67,14 @@ const Profile = () => {
       <div>
         <div className="w-full h-36 bg-[#333639]"></div>
         <div className=" w-full flex items-center justify-between p-2">
-          <div
-            className="flex items-center -mt-16 aspect-square rounded-full p-3 text-3xl box-border  border dark:border-black"
-            style={{
-              backgroundColor: String(user?.color),
-            }}
-          >
-            {user?.name}
-          </div>
+          <Avatar user={user} size={"24"} isTop={true} />
+          {/* <Image
+            alt="avatar"
+            width={100}
+            height={100}
+            className="rounded-full aspect-square -mt-16"
+            src={`https://imagedelivery.net/jhi2XPYSyyyjQKL_zc893Q/${user?.avatarUrl}/avatar`}
+          /> */}
 
           <Link
             href="/edit"
@@ -85,7 +87,7 @@ const Profile = () => {
           <p className="text-2xl  font-semibold">{user.name}</p>
           <p className="text-gray-400">{user.email}</p>
           <p className="flex items-center gap-1 text-gray-400">
-            <AiFillCalendar /> Joined
+            <AiFillCalendar /> Joined {user.createdAt.split("T")[0]}
           </p>
           <p className="flex items-center gap-3 text-gray-400">
             <span>
