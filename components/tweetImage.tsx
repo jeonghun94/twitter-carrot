@@ -7,7 +7,7 @@ interface PageProps {
 
 export default function TweetImage({ imageUrl, height }: PageProps) {
   return (
-    <div className="relative">
+    <div className="relative mt-2">
       <Image
         src={`https://imagedelivery.net/jhi2XPYSyyyjQKL_zc893Q/${imageUrl}/avatar`}
         className="rounded-3xl w-full"

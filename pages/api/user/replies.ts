@@ -17,6 +17,12 @@ async function handler(
       tweet: {
         include: {
           user: true,
+          _count: {
+            select: {
+              replys: true,
+              likes: true,
+            },
+          },
         },
       },
     },

@@ -11,6 +11,10 @@ export interface ITweets {
 }
 interface TweetWithUser extends Tweet {
   user: User;
+  _count: {
+    replys: number;
+    likes: number;
+  };
 }
 
 const Home = () => {

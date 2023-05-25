@@ -2,6 +2,7 @@ import Link from "next/link";
 import { convertTime } from "../lib/client/utils";
 import { ITweets } from "../pages";
 import TweetImage from "./tweetImage";
+import { FiMessageCircle, FiHeart, FiEye } from "react-icons/fi";
 
 export default function Tweets({ tweets }: ITweets) {
   return tweets?.length > 0 ? (
@@ -28,8 +29,22 @@ export default function Tweets({ tweets }: ITweets) {
                     {convertTime(tweet.createdAt.toString())}
                   </p>
                 </div>
-                <p className="text-sm text-gray-500 mb-2">{tweet.text}</p>
+                <p className="text-sm text-white">{tweet.text}</p>
                 {tweet.imageUrl && <TweetImage imageUrl={tweet.imageUrl} />}
+                <div className="w-full flex items-center gap-5 py-1 text-sm text-gray-500">
+                  <div className="flex items-center gap-3">
+                    <FiMessageCircle />
+                    <span>{tweet._count?.replys}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <FiHeart />
+                    <span>{tweet._count?.likes}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <FiEye />
+                    <span>{tweet.views}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

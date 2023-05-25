@@ -11,6 +11,12 @@ async function handler(
     const tweets = await client.tweet.findMany({
       include: {
         user: true,
+        _count: {
+          select: {
+            replys: true,
+            likes: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
