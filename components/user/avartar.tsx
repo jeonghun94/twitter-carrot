@@ -13,12 +13,12 @@ const Avatar = ({ user, size, isTop = false }: PageProps) => {
         isTop ? "-mt-16" : ""
       }  aspect-square rounded-full text-2xl font-semibold  border dark:border-black `}
       style={{
-        backgroundColor: String(user.color),
+        backgroundColor: String(user?.color),
         backgroundImage: `url(https://imagedelivery.net/jhi2XPYSyyyjQKL_zc893Q/${user?.avatarUrl}/avatar)`,
         backgroundSize: "cover",
       }}
     >
-      {user.avatarUrl ? "" : user.name[0]}
+      {user?.avatarUrl ? "" : user?.name[0]}
     </div>
   );
 };
