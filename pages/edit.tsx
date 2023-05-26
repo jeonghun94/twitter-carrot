@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Image from "next/image";
 import useUser from "../lib/client/useUser";
 import useMutation from "../lib/client/useMutation";
@@ -26,7 +26,6 @@ const EditProfile: NextPage = () => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
     watch,
   } = useForm<EditProfileForm>();
@@ -59,8 +58,12 @@ const EditProfile: NextPage = () => {
       });
     }
   };
-  const [avatarPreview, setAvatarPreview] = useState("");
+
+  const [avatarPreview, setAvatarPreview] = useState(
+    `https://imagedelivery.net/jhi2XPYSyyyjQKL_zc893Q/${user?.avatarUrl}/avatar`
+  );
   const avatar = watch("avatar");
+
   useEffect(() => {
     if (avatar && avatar.length > 0) {
       const file = avatar[0];
@@ -95,7 +98,7 @@ const EditProfile: NextPage = () => {
         actionBtn={actionBtn()}
       >
         <div className="-mt-3 space-y-4">
-          <div className="flex justify-center items-center">
+          <div className="flex flex-col justify-center items-center">
             {avatarPreview ? (
               <div className="w-full relative">
                 <Image
@@ -116,25 +119,55 @@ const EditProfile: NextPage = () => {
                 </div>
               </div>
             ) : (
-              <div
-                className="w-14 h-32 rounded-full bg-transparent flex justify-center
+              <div className="w-full">
+                <div
+                  className="w-full h-auto rounded-full bg-transparent flex flex-col justify-center
               items-center "
-              >
-                <label
-                  htmlFor="picture"
-                  className="cursor-pointer p-1  border-gray-300 rounded-full shadow-sm text-xs  text-gray-700"
                 >
-                  <BsCamera className="w-5 h-5 dark:text-white" />
-                  <input
-                    {...register("avatar")}
-                    id="picture"
-                    type="file"
-                    className="hidden"
-                    accept="image/*"
-                  />
-                </label>
+                  <label
+                    htmlFor="picture"
+                    className="flex items-center cursor-pointer p-1 h-32  border-gray-300 rounded-full shadow-sm text-xs  text-gray-700"
+                  >
+                    <BsCamera className="w-5 h-5 dark:text-white" />
+                    <input
+                      {...register("avatar")}
+                      id="picture"
+                      type="file"
+                      className="hidden"
+                      accept="image/*"
+                    />
+                  </label>
+                </div>
               </div>
             )}
+            {/* <div className="w-full box-border p-3">
+              <div className="flex flex-col border py-2 px-3 rounded-md dark:border-[#181818]">
+                <span className="text-sm text-gray-400">Name</span>
+                <input
+                  {...register("name", {
+                    required: "Name is required",
+                  })}
+                  className="w-full h-8 rounded-md  bg-transparent border-transparent outline-none "
+                  type="text"
+                  onFocus={(e) => e.target.select()}
+                  defaultValue={user?.name}
+                />
+              </div>
+            </div> */}
+            <div className="w-full box-border p-3 group ">
+              <label className="flex flex-col border py-2 px-3 rounded-md dark:border-[#181818]">
+                <span className="text-sm text-gray-400">Name</span>
+                <input
+                  {...register("name", {
+                    required: "Name is required",
+                  })}
+                  className="w-full h-8 rounded-md  bg-transparent border-transparent outline-none"
+                  type="text"
+                  onFocus={(e) => e.target.select()}
+                  defaultValue={user?.name}
+                />
+              </label>
+            </div>
           </div>
           {errors.formErrors ? (
             <span className="my-2 text-orange-500 font-medium text-center block">

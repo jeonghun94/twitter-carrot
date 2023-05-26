@@ -67,14 +67,7 @@ const Profile = () => {
       <div>
         <div className="w-full h-36 bg-[#333639]"></div>
         <div className=" w-full flex items-center justify-between p-2">
-          <Avatar user={user} size={"24"} isTop={true} />
-          {/* <Image
-            alt="avatar"
-            width={100}
-            height={100}
-            className="rounded-full aspect-square -mt-16"
-            src={`https://imagedelivery.net/jhi2XPYSyyyjQKL_zc893Q/${user?.avatarUrl}/avatar`}
-          /> */}
+          <Avatar user={user} size={"28"} isTop={true} />
 
           <Link
             href="/edit"

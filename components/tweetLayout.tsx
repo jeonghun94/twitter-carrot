@@ -67,7 +67,7 @@ const Layout = ({
           className="ml-1 w-8 h-8 cursor-pointer"
         /> */}
 
-          <Avatar size="10" user={user} isTop={false} />
+          <Avatar size="10" user={user} />
         </div>
       )}
       <div className={sideBar ? "w-[86%]" : "w-full"}>
