@@ -139,7 +139,7 @@ export default function TweetDetail({ tweet }: ITweet) {
                 })}
                 type="text"
                 className="w-full p-2 bg-transparent outline-none placeholder:text-gray-500 border-transparent"
-                placeholder="Tweet Your reply?"
+                placeholder=" reply?"
               />
               {errors.text && (
                 <p className="text-blue-400 text-sm">{errors.text.message}</p>
