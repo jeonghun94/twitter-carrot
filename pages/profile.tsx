@@ -69,12 +69,12 @@ const Profile = () => {
         <div className=" w-full flex items-center justify-between p-2">
           <Avatar user={user} size={"28"} isTop={true} />
 
-          <Link
+          {/* <Link
             href="/edit"
             className="w-1.5/5 h-10  flex items-center text-sm px-2 rounded-3xl border font-bold hover:opacity-[0.8]"
           >
             Edit profile
-          </Link>
+          </Link> */}
         </div>
         <div className="h-atuo px-5">
           <p className="text-2xl  font-semibold">{user.name}</p>
